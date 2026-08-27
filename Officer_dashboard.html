@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Officer Dashboard Overview - KMC Water</title>
+
+<!-- Auth Guard Check -->
+<script src="components/authGuard.js"></script>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary": "#0061a5",
+                      "secondary-container": "#66affe",
+                      "surface-container": "#efedf1",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#d6e3ff",
+                      "error": "#ba1a1a",
+                      "surface-variant": "#e3e2e6",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface-variant": "#43474e",
+                      "outline": "#74777f",
+                      "primary-container": "#1a365d",
+                      "outline-variant": "#c4c6cf",
+                      "on-background": "#1a1c1e",
+                      "surface-container-low": "#f4f3f7",
+                      "surface": "#faf9fd",
+                      "on-primary": "#ffffff",
+                      "primary": "#002045",
+                      "background": "#faf9fd",
+                      "error-container": "#ffdad6"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "body-sm": ["Inter"]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex antialiased">
+
+<!-- Reusable Component Mount: SideNavBar -->
+<aside id="sidebar-container"></aside>
+
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- Reusable Component Mount: TopNavBar -->
+<header id="header-container"></header>
+
+<!-- Dashboard Content (Optimized for Laptop Viewports) -->
+<div class="flex-1 p-4 lg:p-6 mt-16 overflow-y-auto space-y-5 max-w-[1500px] mx-auto w-full">
+
+<!-- Top Summary Header Bar -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2 mb-1">
+<div>
+<h3 class="text-2xl font-extrabold text-primary tracking-tight">System Overview</h3>
+<p class="text-xs text-on-surface-variant mt-0.5 font-medium">Real-time surveillance &amp; telemetry for Kolhapur Municipal Water Grid.</p>
+</div>
+<div id="lastUpdatedBadge" class="text-xs font-semibold text-on-surface-variant bg-surface-container-lowest px-3 py-1.5 rounded-lg border border-outline-variant/60 shadow-xs flex items-center gap-1.5">
+  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+  <span>Last updated: Loading...</span>
+</div>
+</div>
+
+<!-- Dynamic Bento Grid KPIs -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="kpi-grid">
+<!-- KPI Cards injected dynamically -->
+</div>
+
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+<!-- Live GIS Overview Card (Col Span 6) -->
+<div class="lg:col-span-6 bg-surface-container-lowest rounded-2xl border border-outline-variant/70 overflow-hidden flex flex-col shadow-xs hover:shadow-sm transition-shadow">
+<div class="bg-surface-container-low px-4 py-3 border-b border-outline-variant/60 flex justify-between items-center">
+<h4 class="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-2">
+  <span class="material-symbols-outlined text-secondary text-sm">map</span> Live Network Map
+</h4>
+<a href="GIS_Water_Network.html" class="text-secondary hover:underline text-xs font-bold flex items-center gap-1">
+  <span>Expand Map</span>
+  <span class="material-symbols-outlined text-xs">open_in_new</span>
+</a>
+</div>
+<div class="relative h-60 bg-surface-variant w-full" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAY7QgpdEJdU3pFEp6mYbUnTr8TnAcUYisNv5_-vcKkjaYUCLgkc4rUW-w_YnZRPNVWt17u3ymbnokx2DtiIs3V626CBBzbJ5AklI92akPdr9zEYGdyUzm3_2SgUmn9KTtRfZyf0DR1WKuZz8FhHKn-4zhzOh9j7dJo3vABZa3EnREBgctPP2V52I63iCmTOHj0yBF3TGQD0QbM-T7xMWq2Plrq6VKsE9nYFStjONUc4BN_XlMnW-18'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-white/20 backdrop-blur-[1px]"></div>
+<div class="absolute top-3 left-3 flex flex-col gap-1.5">
+<div class="bg-surface-container-lowest/95 backdrop-blur px-2.5 py-1 rounded-lg border border-outline-variant/80 text-[11px] font-bold text-on-background flex items-center gap-2 shadow-sm">
+<div class="w-2 h-2 rounded-full bg-error animate-pulse"></div> Tarabai Line Pressure Warning
+</div>
+<div class="bg-surface-container-lowest/95 backdrop-blur px-2.5 py-1 rounded-lg border border-outline-variant/80 text-[11px] font-bold text-on-background flex items-center gap-2 shadow-sm">
+<div class="w-2 h-2 rounded-full bg-secondary"></div> Panchganga Main Intake Flowing
+</div>
+</div>
+</div>
+</div>
+
+<!-- Ward-wise Supply Table (Col Span 6) -->
+<div class="lg:col-span-6 bg-surface-container-lowest rounded-2xl border border-outline-variant/70 overflow-hidden flex flex-col shadow-xs">
+<div class="bg-surface-container-low px-4 py-3 border-b border-outline-variant/60 flex justify-between items-center">
+<h4 class="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-2">
+  <span class="material-symbols-outlined text-secondary text-sm">grid_view</span> Ward Supply Status
+</h4>
+<a href="GIS_Water_Network.html" class="text-secondary hover:underline text-xs font-bold">View Details</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse text-xs">
+<thead>
+<tr class="bg-surface border-b border-outline-variant/60">
+<th class="py-2.5 px-3 font-bold text-on-surface-variant">Ward Name</th>
+<th class="py-2.5 px-3 font-bold text-on-surface-variant">Status</th>
+<th class="py-2.5 px-3 font-bold text-on-surface-variant">Pressure</th>
+<th class="py-2.5 px-3 font-bold text-on-surface-variant">Schedule</th>
+</tr>
+</thead>
+<tbody id="wards-table-body" class="divide-y divide-outline-variant/40">
+<!-- Wards injected dynamically -->
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- Recent Alerts List (Col Span 6) -->
+<div class="lg:col-span-6 bg-surface-container-lowest rounded-2xl border border-outline-variant/70 overflow-hidden flex flex-col shadow-xs">
+<div class="bg-surface-container-low px-4 py-3 border-b border-outline-variant/60 flex justify-between items-center">
+<h4 class="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-sm">notifications_active</span> Critical Network Alerts
+</h4>
+<a href="Complaint_management.html" class="text-secondary hover:underline text-xs font-bold">Manage All</a>
+</div>
+<div class="p-4 space-y-2.5" id="alerts-list">
+<!-- Alerts injected dynamically -->
+</div>
+</div>
+
+<!-- Complaint Trends Line Chart Mockup (Col Span 6) -->
+<div class="lg:col-span-6 bg-surface-container-lowest rounded-2xl border border-outline-variant/70 overflow-hidden flex flex-col shadow-xs">
+<div class="bg-surface-container-low px-4 py-3 border-b border-outline-variant/60 flex justify-between items-center">
+<h4 class="text-xs font-bold text-primary uppercase tracking-wider">7-Day Complaint Analytics</h4>
+<span class="text-[11px] text-on-surface-variant font-medium">Avg: 34 / day</span>
+</div>
+<div class="p-4 flex-1 flex flex-col justify-end min-h-[190px] relative">
+<div class="absolute inset-0 p-4 flex items-end justify-between gap-3 pb-8">
+<div class="w-full bg-secondary-container/30 hover:bg-secondary-container/60 transition-colors rounded-t-md h-[40%] relative group"><div class="absolute -top-5 left-1/2 -translate-x-1/2 text-[11px] font-bold text-on-surface-variant">24</div></div>
+<div class="w-full bg-secondary-container/30 hover:bg-secondary-container/60 transition-colors rounded-t-md h-[55%] relative group"><div class="absolute -top-5 left-1/2 -translate-x-1/2 text-[11px] font-bold text-on-surface-variant">32</div></div>
+<div class="w-full bg-secondary-container/30 hover:bg-secondary-container/60 transition-colors rounded-t-md h-[30%] relative group"><div class="absolute -top-5 left-1/2 -translate-x-1/2 text-[11px] font-bold text-on-surface-variant">18</div></div>
+<div class="w-full bg-secondary-container/30 hover:bg-secondary-container/60 transition-colors rounded-t-md h-[65%] relative group"><div class="absolute -top-5 left-1/2 -translate-x-1/2 text-[11px] font-bold text-on-surface-variant">45</div></div>
+<div class="w-full bg-secondary-container/30 hover:bg-secondary-container/60 transition-colors rounded-t-md h-[80%] relative group"><div class="absolute -top-5 left-1/2 -translate-x-1/2 text-[11px] font-bold text-on-surface-variant">52</div></div>
+<div class="w-full bg-secondary-container/30 hover:bg-secondary-container/60 transition-colors rounded-t-md h-[45%] relative group"><div class="absolute -top-5 left-1/2 -translate-x-1/2 text-[11px] font-bold text-on-surface-variant">28</div></div>
+<div class="w-full bg-gradient-to-t from-secondary to-secondary-container rounded-t-md h-[70%] relative border-t-2 border-primary shadow-sm"><div class="absolute -top-5 left-1/2 -translate-x-1/2 text-[11px] font-extrabold text-primary">42</div></div>
+</div>
+<div class="flex justify-between border-t border-outline-variant/60 pt-2 mt-auto text-[11px] text-on-surface-variant font-medium">
+<span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span class="font-bold text-primary">Sun</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</main>
+
+<!-- Shared Mock Data & Reusable Components -->
+<script src="data/mockData.js"></script>
+<script src="components/sidebar.js"></script>
+<script src="components/header.js"></script>
+
+<!-- Dynamic Page Logic -->
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    initSidebar('dashboard');
+    initHeader('Water Management Dashboard');
+
+    document.getElementById('lastUpdatedBadge').innerHTML = `
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span>Last updated: ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+    `;
+
+    try {
+      // Render KPIs
+      const kpiData = await KMC_API.fetchDashboardKPIs();
+      const kpiGrid = document.getElementById('kpi-grid');
+      kpiGrid.innerHTML = `
+        <div class="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/70 flex flex-col justify-between shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <div class="flex items-start justify-between">
+            <span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Active Complaints</span>
+            <span class="material-symbols-outlined text-error p-1.5 bg-error-container/60 rounded-xl text-lg">warning</span>
+          </div>
+          <div class="mt-3">
+            <div class="text-2xl font-extrabold text-primary tracking-tight">${kpiData.activeComplaints}</div>
+            <div class="text-xs font-bold text-error mt-1 flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm">trending_up</span> ${kpiData.complaintTrend}
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/70 flex flex-col justify-between shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <div class="flex items-start justify-between">
+            <span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">NRW Loss %</span>
+            <span class="material-symbols-outlined text-secondary p-1.5 bg-secondary-fixed/60 rounded-xl text-lg">water_drop</span>
+          </div>
+          <div class="mt-3">
+            <div class="text-2xl font-extrabold text-primary tracking-tight">${kpiData.nrwPercentage}</div>
+            <div class="text-xs font-bold text-secondary mt-1 flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm">trending_down</span> ${kpiData.nrwTrend}
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/70 flex flex-col justify-between shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <div class="flex items-start justify-between">
+            <span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Daily Supply Volume</span>
+            <span class="material-symbols-outlined text-emerald-600 p-1.5 bg-emerald-100 rounded-xl text-lg">waves</span>
+          </div>
+          <div class="mt-3">
+            <div class="text-2xl font-extrabold text-emerald-600 tracking-tight">${kpiData.dailySupplyMld} <span class="text-sm">MLD</span></div>
+            <div class="text-xs font-medium text-on-surface-variant mt-1">Target: ${kpiData.supplyTargetMld} MLD</div>
+          </div>
+        </div>
+
+        <div class="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant/70 flex flex-col justify-between shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <div class="flex items-start justify-between">
+            <span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Water Quality Index</span>
+            <span class="material-symbols-outlined text-secondary p-1.5 bg-secondary-fixed/60 rounded-xl text-lg">biotech</span>
+          </div>
+          <div class="mt-3">
+            <div class="text-2xl font-extrabold text-primary tracking-tight">${kpiData.qualityPassRate}</div>
+            <div class="text-xs font-semibold text-emerald-600 mt-1 flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Status: ${kpiData.qualityTrend}
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Render Wards Table
+      const wards = await KMC_API.fetchWards();
+      const wardsTableBody = document.getElementById('wards-table-body');
+      wardsTableBody.innerHTML = wards.map(w => {
+        let badgeClass = 'bg-[#d1fae5] text-[#065f46] border border-[#a7f3d0]';
+        if (w.status === 'Warning') badgeClass = 'bg-amber-100 text-amber-800 border border-amber-200';
+        if (w.status === 'Critical') badgeClass = 'bg-error-container text-on-error-container border border-error/30';
+
+        return `
+          <tr class="hover:bg-surface-container-low transition-colors cursor-pointer" onclick="window.location.href='GIS_Water_Network.html'">
+            <td class="py-2.5 px-3 font-bold text-primary">${w.name}</td>
+            <td class="py-2.5 px-3"><span class="${badgeClass} px-2 py-0.5 rounded-full text-[11px] font-bold">${w.status}</span></td>
+            <td class="py-2.5 px-3 text-on-surface-variant font-medium">${w.pressure} bar</td>
+            <td class="py-2.5 px-3 text-on-surface-variant font-medium">${w.supplySchedule}</td>
+          </tr>
+        `;
+      }).join('');
+
+      // Render Alerts List
+      const alerts = await KMC_API.fetchAlerts();
+      const alertsList = document.getElementById('alerts-list');
+      alertsList.innerHTML = alerts.map(a => {
+        const isCritical = a.severity === 'Critical';
+        const bgClass = isCritical ? 'bg-error-container/20 border-error-container/70' : 'bg-surface-container-low border-outline-variant/60';
+        const iconColor = isCritical ? 'text-error' : 'text-secondary';
+        const iconName = isCritical ? 'warning' : 'info';
+
+        const targetUrl = a.linkedComplaintId 
+          ? `Complaint_management.html?id=${a.linkedComplaintId}`
+          : `Complaint_management.html`;
+
+        return `
+          <div 
+            class="flex gap-3 items-center p-2.5 rounded-xl border ${bgClass} hover:border-secondary transition-all cursor-pointer group shadow-2xs"
+            onclick="window.location.href='${targetUrl}'"
+            title="Click to view details in Complaint Management"
+          >
+            <span class="material-symbols-outlined ${iconColor} text-xl shrink-0">${iconName}</span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <h5 class="text-xs font-bold text-on-surface group-hover:text-secondary transition-colors truncate">${a.type}: ${a.zone}</h5>
+                <span class="text-[10px] text-outline shrink-0">${a.timestamp}</span>
+              </div>
+              <p class="text-[11px] text-on-surface-variant truncate mt-0.5">${a.message}</p>
+            </div>
+            <span class="material-symbols-outlined text-outline group-hover:text-secondary group-hover:translate-x-0.5 transition-all text-base shrink-0">chevron_right</span>
+          </div>
+        `;
+      }).join('');
+
+    } catch (err) {
+      console.error('Error rendering dashboard data:', err);
+    }
+  });
+</script>
+</body>
+</html>
